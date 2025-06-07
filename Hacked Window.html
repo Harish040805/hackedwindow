@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hacked Window">
+  <meta name="author" content="Harish">
+  <title>Hacked Window</title>
+  <style> 
+body {
+  margin: 0;
+  padding: 0;
+}
+#start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 5;
+}
+#start-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+#container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #000;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+#output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.lime {
+  color: #32CD32;
+}
+.green {
+  color: #008000;
+}
+.red {
+  color: #FF0000;
+}
+.white {
+  color: #D3D3D3;
+}
+.start-button {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #228b22;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.title-text {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 80px;
+  cursor: pointer;
+  font-family: Arial;
+}
+#command-prompt {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  background-color: #000;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  z-index: 2;
+}
+#command-input {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  font-size: 16px;
+}
+#command-button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#command-output {
+  white-space: pre-wrap;
+  color: #fff;
+}
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  </style>
+</head>
+<body>
+  <div id="start-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000;">
+  <p class="title-text">|-|acked \^/indow <span style="animation: blink 1s infinite;" id="blinking">&#9608;</span></p>
+    <button class="start-button" onclick="start()">Start</button>
+  </div>
+
+  <div id="container" style="display: none;">
+    <div id="output"></div>
+  </div>
+
+<div id="command-prompt">
+  <input type="text" id="command-input" placeholder="Enter command...">
+  <button id="command-button">Execute</button>
+  <div id="command-output"></div>
+</div>
+
+  <script>
+let colorToggle = true;
+let running = true;
+let animationFrameId;
+let outputHtml = '';
+
+function printInfinite() {
+  if (!running) return;
+  const output = document.getElementById("output");
+  const container = document.getElementById("container");
+
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  outputHtml += `<span class="red">=DANGER=</span>`;
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  outputHtml += `<span class="white">=YOU_ARE_HACKED=</span>`;
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  outputHtml += `<span class="red">=SYSTEM_COMPROMISED=</span>`;
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  outputHtml += `<span class="white">=IP_ADDRESS_REVEALED=</span>`;
+
+  output.innerHTML = outputHtml;
+  window.scrollTo(0, document.body.scrollHeight);
+  colorToggle = !colorToggle;
+  if (running) {
+    animationFrameId = requestAnimationFrame(printInfinite);
+  }
+}
+
+function start() {
+  document.getElementById("start-screen").remove();
+  document.getElementById("container").style.display = 'block';
+  printInfinite();
+  document.documentElement.requestFullscreen();
+}
+
+document.getElementById("command-button").addEventListener("click", function() {
+  const commandInput = document.getElementById("command-input");
+  const commandOutput = document.getElementById("command-output");
+  const command = commandInput.value.trim().toLowerCase();
+  if (command !== "") {
+    commandOutput.innerText += "> " + commandInput.value + "\n";
+    if (command === "exit()") {
+      window.location.reload();
+    } else if (command === "break()") {
+      running = false;
+      commandOutput.innerText += "Infinite loop stopped.\n";
+    } else if (command === "help()") {
+      commandOutput.innerText += "Available commands:\n";
+      commandOutput.innerText += "  exit(): Reload the page\n";
+      commandOutput.innerText += "  break(): Stop the infinite loop\n";
+      commandOutput.innerText += "  help(): Show this help message\n";
+    }
+    commandInput.value = "";
+    commandOutput.scrollTop = commandOutput.scrollHeight;
+  }
+});
+  </script>
+</body>
+</html>
