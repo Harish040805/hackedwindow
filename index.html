@@ -32,15 +32,19 @@ function printInfinite() {
   const output = document.getElementById("output");
   const container = document.getElementById("container");
 
-  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  let bs = '0';
+  for (let i = 0; i < 47; i++) {
+    bs += '100';
+  }
+  bs += '10';
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">${bs}</span>`;
   outputHtml += `<span class="red">=DANGER=</span>`;
-  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">${bs}</span>`;
   outputHtml += `<span class="white">=YOU_ARE_HACKED=</span>`;
-  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">${bs}</span>`;
   outputHtml += `<span class="red">=SYSTEM_COMPROMISED=</span>`;
-  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010010</span>`;
+  outputHtml += `<span class="${colorToggle ? 'lime' : 'green'}">${bs}</span>`;
   outputHtml += `<span class="white">=IP_ADDRESS_REVEALED=</span>`;
-
   output.innerHTML = outputHtml;
   window.scrollTo(0, document.body.scrollHeight);
   colorToggle = !colorToggle;
